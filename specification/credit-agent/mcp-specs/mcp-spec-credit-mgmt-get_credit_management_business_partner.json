@@ -1,0 +1,28 @@
+{
+  "name": "get_credit_management_business_partner",
+  "title": "get_credit_management_business_partner",
+  "mcpServerOrdId": "sap.mcpbuilder:apiResource:credit_management_business_partner_mcp_demo:v1",
+  "description": "Retrieve a single Business Partner credit management master data record by its key (BusinessPartner). Returns credit-related attributes such as credit worthiness score, credit risk class, credit check rule, and business relationship start year.",
+  "inputSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["businesspartner"],
+    "properties": {
+      "businesspartner": {"title": "BusinessPartner", "type": "string", "maxLength": 10, "description": "Key property BusinessPartner"},
+      "select": {"title": "select", "type": "string"},
+      "expand": {"title": "expand", "type": "string"}
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "BusinessPartner": {"type": "string"},
+      "CreditWorthinessScoreValue": {"type": ["string", "null"], "description": "Credit worthiness score value"},
+      "CalcdCrdtWorthinessScoreValue": {"type": ["string", "null"], "description": "Calculated credit worthiness score"},
+      "CreditRiskClass": {"type": ["string", "null"], "description": "Credit risk class"},
+      "CalculatedCreditRiskClass": {"type": ["string", "null"]},
+      "CreditCheckRule": {"type": ["string", "null"]},
+      "CustBusinessRelshpStartYear": {"type": ["string", "null"]}
+    }
+  }
+}

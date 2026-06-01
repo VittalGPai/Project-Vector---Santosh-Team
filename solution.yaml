@@ -1,0 +1,15 @@
+apiVersion: solution.sap/v1
+kind: Solution
+
+metadata:
+  name: sales-credit-collection-agent-6847d
+  version: 1.0.0
+  description: >
+    Multi-agent solution where a Sales Agent assesses customer payment behavior
+    by consulting a Credit Agent and a Collection Agent before creating and
+    releasing or blocking a sales order in SAP S/4HANA.
+
+assets:
+  - ref: ./assets/credit-agent/asset.yaml
+  - ref: ./assets/collection-agent/asset.yaml
+  - ref: ./assets/sales-agent/asset.yaml

@@ -1,0 +1,41 @@
+{
+  "name": "list_salesorder",
+  "title": "list_A_SalesOrder",
+  "mcpServerOrdId": "sap.mcpbuilder:apiResource:sales_order_mcp_demo:v1",
+  "description": "Retrieve a list of sales orders from SAP S/4HANA. Used to check existing orders for a customer.",
+  "inputSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [],
+    "properties": {
+      "filter": {"title": "filter", "type": "string"},
+      "select": {"title": "select", "type": "string"},
+      "top": {"title": "top", "type": "integer", "minimum": 0},
+      "skip": {"title": "skip", "type": "integer", "minimum": 0},
+      "expand": {"title": "expand", "type": "string"},
+      "inlinecount": {"title": "inlinecount", "type": "string", "enum": ["allpages", "none"]}
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "value": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "SalesOrder": {"type": "string"},
+            "SalesOrderType": {"type": ["string", "null"]},
+            "SoldToParty": {"type": ["string", "null"]},
+            "CreationDate": {"type": ["string", "null"]},
+            "TotalNetAmount": {"type": ["string", "null"]},
+            "DeliveryBlockReason": {"type": ["string", "null"]},
+            "TotalBlockStatus": {"type": ["string", "null"]},
+            "TotalCreditCheckStatus": {"type": ["string", "null"]},
+            "OverallSDProcessStatus": {"type": ["string", "null"]}
+          }
+        }
+      }
+    }
+  }
+}

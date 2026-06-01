@@ -1,0 +1,38 @@
+{
+  "name": "list_credit_management_account",
+  "title": "list_credit_management_account",
+  "mcpServerOrdId": "sap.mcpbuilder:apiResource:credit_management_business_partner_mcp_demo:v1",
+  "description": "Retrieve a list of Credit Management Accounts. A Credit Management Account represents the credit exposure of a business partner within a specific credit segment, including credit limit, credit exposure, and risk data. Used by the Collection Agent to retrieve overdue receivables context.",
+  "inputSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [],
+    "properties": {
+      "filter": {"title": "filter", "type": "string"},
+      "select": {"title": "select", "type": "string"},
+      "top": {"title": "top", "type": "integer", "minimum": 0},
+      "skip": {"title": "skip", "type": "integer", "minimum": 0},
+      "expand": {"title": "expand", "type": "string"},
+      "inlinecount": {"title": "inlinecount", "type": "string", "enum": ["allpages", "none"]}
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "value": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "BusinessPartner": {"type": "string"},
+            "CreditSegment": {"type": "string"},
+            "BusinessPartnerIsCritical": {"type": ["boolean", "null"]},
+            "CreditAccountIsBlocked": {"type": ["boolean", "null"]},
+            "CreditLimitAmount": {"type": ["string", "null"]},
+            "CreditSegmentCurrency": {"type": ["string", "null"]}
+          }
+        }
+      }
+    }
+  }
+}

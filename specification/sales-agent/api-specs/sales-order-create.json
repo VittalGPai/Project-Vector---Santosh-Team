@@ -1,0 +1,242 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SAP Sales Order (A2X) - Create",
+    "version": "1.1.1",
+    "description": "Minimal spec for creating sales orders in SAP S/4HANA. Use POST /A_SalesOrder to create with optional DeliveryBlockReason to block."
+  },
+  "servers": [
+    {
+      "url": "https://{host}:{port}/sap/opu/odata/sap/API_SALES_ORDER_SRV",
+      "variables": {
+        "host": {
+          "default": ""
+        },
+        "port": {
+          "default": ""
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/A_SalesOrder": {
+      "post": {
+        "summary": "Creates a sales order.",
+        "description": "Creates a sales order header. Consumers can create a sales order with all possible sub-entities (for example, header partners or items) using deep insert requests or create a single sales order header.",
+        "tags": [
+          "Sales Order Header"
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "New entity",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/API_SALES_ORDER_SRV.A_SalesOrderType-create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "A_SalesOrderType",
+                  "type": "object",
+                  "properties": {
+                    "d": {
+                      "$ref": "#/components/schemas/API_SALES_ORDER_SRV.A_SalesOrderType"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "API_SALES_ORDER_SRV.A_SalesOrderType-create": {
+        "type": "object",
+        "title": "SalesOrder (create)",
+        "properties": {
+          "SalesOrderType": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 4,
+            "x-sap-object-node-type-reference": "SalesOrderType",
+            "title": "Sales Order Type"
+          },
+          "SalesOrganization": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 4,
+            "title": "Sales Organization"
+          },
+          "DistributionChannel": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 2,
+            "title": "Distribution Channel"
+          },
+          "OrganizationDivision": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 2,
+            "title": "Division"
+          },
+          "SoldToParty": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 10,
+            "title": "Sold-to Party"
+          },
+          "RequestedDeliveryDate": {
+            "type": "string",
+            "nullable": true,
+            "example": "/Date(1492041600000)/",
+            "title": "Requested Delivery Date"
+          },
+          "PurchaseOrderByCustomer": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 35,
+            "title": "Customer Reference"
+          },
+          "DeliveryBlockReason": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 2,
+            "title": "Delivery Block",
+            "description": "Delivery Block (Document Header)"
+          },
+          "HeaderBillingBlockReason": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 2,
+            "x-sap-object-node-type-reference": "BillingBlockReason",
+            "title": "Billing Block",
+            "description": "Billing Block in SD Document"
+          },
+          "TransactionCurrency": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 5,
+            "x-sap-object-node-type-reference": "Currency",
+            "title": "Document Currency",
+            "description": "SD Document Currency"
+          },
+          "CustomerPaymentTerms": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 4,
+            "title": "Terms of Payment",
+            "description": "Terms of Payment Key"
+          },
+          "to_Item": {
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/API_SALES_ORDER_SRV.A_SalesOrderItemType-create"
+                }
+              }
+            }
+          },
+          "to_Partner": {
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/API_SALES_ORDER_SRV.A_SalesOrderHeaderPartnerType-create"
+                }
+              }
+            }
+          }
+        }
+      },
+      "API_SALES_ORDER_SRV.A_SalesOrderItemType-create": {
+        "type": "object",
+        "title": "SalesOrderItem (create)",
+        "properties": {
+          "SalesOrderItem": {
+            "type": "string",
+            "maxLength": 6,
+            "title": "Item",
+            "description": "Sales Order Item"
+          },
+          "Material": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 40,
+            "title": "Material",
+            "description": "Material Number"
+          },
+          "RequestedQuantity": {
+            "type": "string",
+            "nullable": true,
+            "format": "decimal",
+            "x-sap-precision": 15,
+            "x-sap-scale": 3,
+            "multipleOf": 0.001,
+            "minimum": -999999999999.999,
+            "maximum": 999999999999.999,
+            "example": "0",
+            "title": "Requested Quantity"
+          },
+          "RequestedQuantityUnit": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 3,
+            "title": "Requested Qty Unit",
+            "description": "Unit of the Requested Quantity"
+          },
+          "StorageLocation": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 4,
+            "title": "Storage Location"
+          }
+        }
+      },
+      "API_SALES_ORDER_SRV.A_SalesOrderType": {
+        "type": "object",
+        "title": "SalesOrder",
+        "properties": {
+          "SalesOrder": {
+            "type": "string",
+            "title": "Sales Order Number"
+          },
+          "SalesOrderType": {
+            "type": "string"
+          },
+          "SoldToParty": {
+            "type": "string"
+          },
+          "DeliveryBlockReason": {
+            "type": "string",
+            "description": "Delivery block reason code. Set to block delivery, empty to release."
+          },
+          "HeaderBillingBlockReason": {
+            "type": "string"
+          },
+          "OverallSDProcessStatus": {
+            "type": "string"
+          },
+          "TotalCreditCheckStatus": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

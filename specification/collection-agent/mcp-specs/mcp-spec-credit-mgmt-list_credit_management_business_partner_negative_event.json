@@ -1,0 +1,41 @@
+{
+  "name": "list_credit_management_business_partner_negative_event",
+  "title": "list_credit_management_business_partner_negative_event",
+  "mcpServerOrdId": "sap.mcpbuilder:apiResource:credit_management_business_partner_mcp_demo:v1",
+  "description": "Retrieve a list of Business Partner Negative Event records from the SAP Credit Management service. Negative events are adverse credit-relevant events recorded against a business partner (e.g. payment defaults, insolvencies). Used to identify broken promises to pay and collection risk signals.",
+  "inputSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [],
+    "properties": {
+      "filter": {"title": "filter", "type": "string", "description": "OData $filter expression, e.g. BusinessPartner eq '1000001'"},
+      "select": {"title": "select", "type": "string"},
+      "orderby": {"title": "orderby", "type": "string"},
+      "top": {"title": "top", "type": "integer", "minimum": 0},
+      "skip": {"title": "skip", "type": "integer", "minimum": 0},
+      "expand": {"title": "expand", "type": "string"},
+      "inlinecount": {"title": "inlinecount", "type": "string", "enum": ["allpages", "none"]}
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "value": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "BusinessPartner": {"type": "string"},
+            "CreditSegment": {"type": "string"},
+            "CrdtAcctInformationCategory": {"type": "string", "description": "Category of the adverse credit event"},
+            "CrdtAcctInformationType": {"type": "string", "description": "Type of the adverse credit event"},
+            "AdditionalCreditDocSequence": {"type": "string"},
+            "ValidityStartDate": {"type": ["string", "null"]},
+            "ValidityEndDate": {"type": ["string", "null"]},
+            "AdditionalCreditDocComment": {"type": ["string", "null"], "description": "Comment describing the adverse event"}
+          }
+        }
+      }
+    }
+  }
+}

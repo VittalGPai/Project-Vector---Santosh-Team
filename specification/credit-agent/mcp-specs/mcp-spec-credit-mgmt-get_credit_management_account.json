@@ -1,0 +1,32 @@
+{
+  "name": "get_credit_management_account",
+  "title": "get_credit_management_account",
+  "mcpServerOrdId": "sap.mcpbuilder:apiResource:credit_management_business_partner_mcp_demo:v1",
+  "description": "Retrieve a single Credit Management Account by its key (BusinessPartner + CreditSegment). Returns credit limit, credit exposure, risk class, and other account-level credit data for the specified business partner and credit segment.",
+  "inputSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["businesspartner", "creditsegment"],
+    "properties": {
+      "businesspartner": {"title": "BusinessPartner", "type": "string", "maxLength": 10, "description": "Key property BusinessPartner"},
+      "creditsegment": {"title": "CreditSegment", "type": "string", "maxLength": 10, "description": "Key property CreditSegment"},
+      "select": {"title": "select", "type": "string", "description": "OData $select query option"},
+      "expand": {"title": "expand", "type": "string", "description": "OData $expand query option"}
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "BusinessPartner": {"type": "string"},
+      "CreditSegment": {"type": "string"},
+      "BusinessPartnerIsCritical": {"type": ["boolean", "null"]},
+      "CreditAccountIsBlocked": {"type": ["boolean", "null"]},
+      "CreditAccountBlockReason": {"type": ["string", "null"]},
+      "CreditLimitAmount": {"type": ["string", "null"], "description": "Credit limit assigned"},
+      "CreditLimitValidityEndDate": {"type": ["string", "null"]},
+      "CreditLimitCalculatedAmount": {"type": ["string", "null"]},
+      "CreditLimitIsZero": {"type": ["boolean", "null"]},
+      "CreditSegmentCurrency": {"type": ["string", "null"]}
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "servers": {
+    "credit-mgmt": {
+      "mcp_server_name": "sap.mcpbuilder:apiResource:credit_management_business_partner_mcp_demo:v1",
+      "description": "SAP S/4HANA Credit Management Master Data MCP Server",
+      "tools": {
+        "list_credit_management_business_partner_negative_event": {
+          "description": "Retrieve a list of Business Partner Negative Event records. Negative events are adverse credit-relevant events recorded against a business partner (payment defaults, insolvencies).",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData $filter expression" },
+              "select": { "type": "string" },
+              "orderby": { "type": "string" },
+              "top": { "type": "integer" },
+              "skip": { "type": "integer" },
+              "expand": { "type": "string" },
+              "inlinecount": { "type": "string", "enum": ["allpages", "none"] }
+            }
+          },
+          "mock_response": {
+            "value": [
+              {
+                "BusinessPartner": "1000001",
+                "CreditSegment": "0001",
+                "CrdtAcctInformationCategory": "01",
+                "CrdtAcctInformationType": "P2P",
+                "AdditionalCreditDocSequence": "0001",
+                "ValidityStartDate": "/Date(1704067200000)/",
+                "ValidityEndDate": "/Date(1735689600000)/",
+                "AdditionalCreditDocComment": "Broken promise to pay dated 2024-01-01"
+              }
+            ]
+          }
+        },
+        "list_credit_management_account": {
+          "description": "Retrieve a list of Credit Management Accounts. A Credit Management Account represents the credit exposure of a business partner within a specific credit segment.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string" },
+              "select": { "type": "string" },
+              "top": { "type": "integer" },
+              "skip": { "type": "integer" },
+              "expand": { "type": "string" },
+              "inlinecount": { "type": "string", "enum": ["allpages", "none"] }
+            }
+          },
+          "mock_response": {
+            "value": [
+              {
+                "BusinessPartner": "1000001",
+                "CreditSegment": "0001",
+                "BusinessPartnerIsCritical": false,
+                "CreditAccountIsBlocked": false,
+                "CreditLimitAmount": "50000.00",
+                "CreditSegmentCurrency": "USD"
+              }
+            ]
+          }
+        },
+        "get_metadata_cds_api_crdtmbusinesspartner": {
+          "description": "Get metadata of the OData service.",
+          "input_schema": {
+            "type": "object",
+            "properties": {}
+          },
+          "mock_response": "<edmx:Edmx Version=\"1.0\"><edmx:DataServices><Schema Namespace=\"cds_api_crdtmbusinesspartner\"></Schema></edmx:DataServices></edmx:Edmx>"
+        }
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "created_for_agent": "collection-agent",
+    "mock_mode": true,
+    "deterministic": true,
+    "total_servers": 1,
+    "total_tools": 3,
+    "generated_from": [
+      "mcp-spec-credit-mgmt-list_credit_management_business_partner_negative_event.json",
+      "mcp-spec-credit-mgmt-list_credit_management_account.json"
+    ],
+    "generation_date": "2026-05-30"
+  }
+}

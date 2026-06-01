@@ -1,0 +1,78 @@
+{
+  "servers": {
+    "sales-order": {
+      "mcp_server_name": "sap.mcpbuilder:apiResource:sales_order_mcp_demo:v1",
+      "description": "SAP S/4HANA Sales Order (A2X) MCP Server",
+      "tools": {
+        "list_salesorder": {
+          "description": "Retrieve a list of sales orders from SAP S/4HANA.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string" },
+              "select": { "type": "string" },
+              "top": { "type": "integer" },
+              "skip": { "type": "integer" },
+              "expand": { "type": "string" },
+              "inlinecount": { "type": "string", "enum": ["allpages", "none"] }
+            }
+          },
+          "mock_response": {
+            "value": [
+              {
+                "SalesOrder": "1000000001",
+                "SalesOrderType": "TA",
+                "SoldToParty": "1000001",
+                "CreationDate": "/Date(1748563200000)/",
+                "TotalNetAmount": "15000.00",
+                "DeliveryBlockReason": null,
+                "TotalBlockStatus": " ",
+                "TotalCreditCheckStatus": "B",
+                "OverallSDProcessStatus": "A"
+              }
+            ]
+          }
+        },
+        "get_salesorder": {
+          "description": "Retrieve a single sales order by key.",
+          "input_schema": {
+            "type": "object",
+            "required": ["salesorder"],
+            "properties": {
+              "salesorder": { "type": "string", "description": "Sales order number" },
+              "select": { "type": "string" },
+              "expand": { "type": "string" }
+            }
+          },
+          "mock_response": {
+            "SalesOrder": "1000000001",
+            "SalesOrderType": "TA",
+            "SoldToParty": "1000001",
+            "TotalNetAmount": "15000.00",
+            "DeliveryBlockReason": null,
+            "TotalCreditCheckStatus": "B",
+            "OverallSDProcessStatus": "A"
+          }
+        },
+        "get_metadata_api_sales_order_srv": {
+          "description": "Get metadata of the Sales Order OData service.",
+          "input_schema": {
+            "type": "object",
+            "properties": {}
+          },
+          "mock_response": "<edmx:Edmx Version=\"1.0\"><edmx:DataServices><Schema Namespace=\"API_SALES_ORDER_SRV\"></Schema></edmx:DataServices></edmx:Edmx>"
+        }
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "created_for_agent": "sales-agent",
+    "mock_mode": true,
+    "deterministic": true,
+    "total_servers": 1,
+    "total_tools": 3,
+    "generated_from": ["mcp-spec-sales-order-list_salesorder.json"],
+    "generation_date": "2026-05-30"
+  }
+}

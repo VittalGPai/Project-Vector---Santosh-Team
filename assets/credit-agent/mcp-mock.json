@@ -1,0 +1,77 @@
+{
+  "servers": {
+    "credit-mgmt": {
+      "mcp_server_name": "sap.mcpbuilder:apiResource:credit_management_business_partner_mcp_demo:v1",
+      "description": "SAP S/4HANA Credit Management Master Data MCP Server",
+      "tools": {
+        "get_credit_management_account": {
+          "description": "Retrieve a single Credit Management Account by its key (BusinessPartner + CreditSegment). Returns credit limit, credit exposure, risk class, and other account-level credit data.",
+          "input_schema": {
+            "type": "object",
+            "required": ["businesspartner", "creditsegment"],
+            "properties": {
+              "businesspartner": { "type": "string", "description": "Key property BusinessPartner" },
+              "creditsegment": { "type": "string", "description": "Key property CreditSegment" },
+              "select": { "type": "string" },
+              "expand": { "type": "string" }
+            }
+          },
+          "mock_response": {
+            "BusinessPartner": "1000001",
+            "CreditSegment": "0001",
+            "BusinessPartnerIsCritical": false,
+            "CreditAccountIsBlocked": false,
+            "CreditAccountBlockReason": null,
+            "CreditLimitAmount": "50000.00",
+            "CreditLimitValidityEndDate": "/Date(1893456000000)/",
+            "CreditLimitCalculatedAmount": "50000.00",
+            "CreditLimitIsZero": false,
+            "CreditSegmentCurrency": "USD"
+          }
+        },
+        "get_credit_management_business_partner": {
+          "description": "Retrieve a single Business Partner credit management master data record. Returns credit worthiness score, credit risk class, credit check rule.",
+          "input_schema": {
+            "type": "object",
+            "required": ["businesspartner"],
+            "properties": {
+              "businesspartner": { "type": "string", "description": "Key property BusinessPartner" },
+              "select": { "type": "string" },
+              "expand": { "type": "string" }
+            }
+          },
+          "mock_response": {
+            "BusinessPartner": "1000001",
+            "CrdtMgmtBusinessPartnerGroup": "A001",
+            "CreditWorthinessScoreValue": "750",
+            "CreditRiskClass": "B",
+            "CalculatedCreditRiskClass": "B",
+            "CreditCheckRule": "01",
+            "CustBusinessRelshpStartYear": "2020"
+          }
+        },
+        "get_metadata_cds_api_crdtmbusinesspartner": {
+          "description": "Get metadata of the OData service.",
+          "input_schema": {
+            "type": "object",
+            "properties": {}
+          },
+          "mock_response": "<edmx:Edmx Version=\"1.0\"><edmx:DataServices><Schema Namespace=\"cds_api_crdtmbusinesspartner\"></Schema></edmx:DataServices></edmx:Edmx>"
+        }
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "created_for_agent": "credit-agent",
+    "mock_mode": true,
+    "deterministic": true,
+    "total_servers": 1,
+    "total_tools": 3,
+    "generated_from": [
+      "mcp-spec-credit-mgmt-get_credit_management_account.json",
+      "mcp-spec-credit-mgmt-get_credit_management_business_partner.json"
+    ],
+    "generation_date": "2026-05-30"
+  }
+}

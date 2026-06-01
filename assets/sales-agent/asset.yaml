@@ -1,0 +1,43 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: sales-agent
+  version: 1.0.0
+  description: >
+    Sales Agent — orchestrator that consults the Credit Agent and Collection
+    Agent before creating a sales order in SAP S/4HANA with release or
+    delivery-block status based on the combined risk assessment.
+
+type: agent
+
+container:
+  buildPath: .
+  port: 5000
+
+requires:
+  - name: sales-order-mcp-demo
+    kind: mcp-server
+    ordId: sap.mcpbuilder:apiResource:sales_order_mcp_demo:v1
+  - name: credit-management-business-partner-mcp-demo
+    kind: mcp-server
+    ordId: sap.mcpbuilder:apiResource:credit_management_business_partner_mcp_demo:v1
+
+probes:
+  startup:
+    path: /.well-known/agent.json
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 18
+  liveness:
+    path: /.well-known/agent.json
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readiness:
+    path: /.well-known/agent.json
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3

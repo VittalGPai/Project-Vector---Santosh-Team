@@ -1,0 +1,16 @@
+{
+  "undeploy_job_id": "2bcbf021-b1a3-43cb-86f6-612f5ed1832d",
+  "undeploy_status": "completed",
+  "deploy_job_id": "34bd70e1-fb46-40e6-8dca-3ba99aa9feef",
+  "deploy_status": "failed",
+  "error": "helm-deploy phase failed: failed to create platform service instances: service \"auditlog\": ServiceInstance \"auditlog\" creation failed: couldn't find the service offering 'auditlog' on dataCenter ''",
+  "root_cause": "Platform auto-injects auditlog/standard ServiceInstance for agent-type assets. The auditlog service offering is not available in the current data center (empty string). This is a BTP sub-account entitlement issue, not a code issue.",
+  "resolution_required": "BTP admin must add the 'auditlog' or 'auditlog-management' service entitlement to the sub-account and make it available in the Kyma cluster's data center.",
+  "solution_code_status": "complete",
+  "test_results": {
+    "credit_agent": {"passed": 28, "coverage": "73%"},
+    "collection_agent": {"passed": 27, "coverage": "72%"},
+    "sales_agent": {"passed": 37, "coverage": "75%"}
+  },
+  "timestamp": "2026-05-30T12:03:21Z"
+}
